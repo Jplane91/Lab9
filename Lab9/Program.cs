@@ -44,7 +44,7 @@ namespace Lab9
                 int validate = ValidateUserChoice("validate", studentNames);
                 DisplayInfo(validate, studentNames, hometown, favoriteFood, favoriteMovie);
              
-            }
+                }
 
 
         }
@@ -212,6 +212,7 @@ namespace Lab9
 
             else
             {
+                System.Environment.Exit(1);
                 return false;
             }
 
