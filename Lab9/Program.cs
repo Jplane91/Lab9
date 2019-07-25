@@ -7,8 +7,8 @@ namespace Lab9
     {
         static void Main(string[] args)
         {
-           
-            {
+
+            
                 List<string> studentNames = new List<string>
             {
                 "Jake", "Jess", "Chris", "Paula", "Levi"
@@ -35,11 +35,18 @@ namespace Lab9
 
 
                 AddUserInput(studentNames, hometown, favoriteFood, favoriteMovie);
+
+                bool loop = true;
+                while (loop)
+
+                {
                 PrintStudentNumber(studentNames);
-                int validate = ValidateUserChoice("validate",studentNames);
+                int validate = ValidateUserChoice("validate", studentNames);
                 DisplayInfo(validate, studentNames, hometown, favoriteFood, favoriteMovie);
-                AskForOtherStudent();
-            } 
+             
+            }
+
+
         }
 
         public static void AddUserInput(List<string> names, List<string> hometown, List<string> favoriteFood, List<string> movie)
@@ -120,7 +127,7 @@ namespace Lab9
                 Console.WriteLine(i + 1 + " " + studentNames[i]);
             }
 
-            
+
         }
 
         public static string AskUserForStudent(List<string> studentNames)
@@ -145,107 +152,71 @@ namespace Lab9
             }
         }
 
-        public static string GetStudentInfo(string userChoice)
+        public static string AskForWhichInfo(string userChoice)
         {
             Console.WriteLine("What info would you like to know about the student?\n(hometown, favorite food, favorite movie, or nothing)");
             string infoChosen = Console.ReadLine().ToLower();
             return infoChosen;
         }
 
-        public static void DisplayInfo(int nameInput, List<string> names, List<string> hometown ,List<string> favoriteFood, List<string> movie)
+        public static void DisplayInfo(int nameInput, List<string> names, List<string> hometown, List<string> favoriteFood, List<string> movie)
         {
             bool askInfoLoop = true;
 
             while (askInfoLoop)
             {
 
-                string moreInfo = GetStudentInfo("test");
+                string moreInfo = AskForWhichInfo("test");
                 Console.WriteLine();
 
                 switch (moreInfo)
                 {
                     case "hometown":
 
-                        Console.WriteLine("\n" + names[nameInput] + "'s hometown is " + hometown[nameInput]+"\n");
+                        Console.WriteLine("\n" + names[nameInput] + "'s hometown is " + hometown[nameInput] + "\n");
                         break;
 
                     case "favorite food":
-                        Console.WriteLine("\n" + names[nameInput] + "'s favorite food is " + favoriteFood[nameInput]+"\n");
+                        Console.WriteLine("\n" + names[nameInput] + "'s favorite food is " + favoriteFood[nameInput] + "\n");
                         break;
 
                     case "favorite movie":
-                        Console.WriteLine("\n" + names[nameInput] + "'s favorite movie is " + movie[nameInput]+"\n");
+                        Console.WriteLine("\n" + names[nameInput] + "'s favorite movie is " + movie[nameInput] + "\n");
                         break;
 
                     case "nothing":
-                        AskForOtherStudent();
+                        askInfoLoop = false;
+                        bool ask = AskForAnotherStudent();
                         break;
 
                     default:
                         Console.WriteLine("\nThat wasn't a valid option");
                         askInfoLoop = true;
                         break;
-                        
+
                 }
 
             }
+
+
         }
 
-        public static void AskForOtherStudent()
+        public static bool AskForAnotherStudent()
         {
-
-            List<string> studentNames = new List<string>
+            Console.WriteLine("Would you like to look up another student?(yes or no)");
+            string anotherStudentResponse = Console.ReadLine();
+            if (anotherStudentResponse == "yes")
             {
-                "Jake", "Jess", "Chris", "Paula", "Levi"
-
-            };
-
-            List<string> hometown = new List<string>
-            {
-                "Ortonville", "Ferndale", "Novi", "Livonia", "Levi"
-
-            };
-
-            List<string> favoriteFood = new List<string>
-            {
-                "Pizza", "Pasta", "Lobster", "Hamburger", "Burrito"
-
-            };
-
-            List<string> favoriteMovie = new List<string>
-            {
-                "Lord of the Rings", "The Lion King", "Star Wars", "Wall-E", "The Matrix"
-
-            };
-
-
-
-            Console.WriteLine("Would you like to look up another student? (yes or no)");
-            string userAnswer = Console.ReadLine().ToLower();
-            if (userAnswer == "yes")
-            {
-                PrintStudentNumber(studentNames);
-                int validate = ValidateUserChoice("validate", studentNames);
-                DisplayInfo(validate, studentNames, hometown, favoriteFood, favoriteMovie);
-                AskForOtherStudent();
-
-            }
-
-            else if (userAnswer == "no")
-            {
-                Console.WriteLine("Have a good day");
-                System.Environment.Exit(1);
+                return true;
             }
 
             else
             {
-                Console.WriteLine("Invalid input");
-                AskForOtherStudent();
-
+                return false;
             }
 
+            
         }
-       
 
     }
 }
